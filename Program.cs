@@ -1,4 +1,13 @@
+using ApointementSystem.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new Exception("Server is not configured!");
+    options.UseSqlServer(connectionString);
+});
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
