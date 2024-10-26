@@ -1,0 +1,46 @@
+﻿@* @model ApointementSystem.Models.PostModel.Post
+
+<div class="container mt-5">
+    <h2 class="mb-4">Manage Posts</h2>
+    <a class="btn btn-primary mb-3" href="@Url.Action("Create", "Post")">Add New Post</a>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in Model)
+            {
+                <tr>
+                    <td>@post.Name</td>
+                    <td>
+                        @if (post.Status == "Active")
+                        {
+                            <span class="badge badge-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-secondary">Inactive</span>
+                        }
+                    </td>
+                    <td>
+                        <a class="btn btn-warning btn-sm" href="@Url.Action("Edit", "Create", new { id = post.Id })">Edit</a>
+
+                        @if (post.Status == true)
+                        {
+                            <a class="btn btn-danger btn-sm" href="@Url.Action("Deactivate", "Create", new { id = post.Id })">Deactivate</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-success btn-sm" href="@Url.Action("Activate", "Create", new { id = post.Id })">Activate</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+ *@

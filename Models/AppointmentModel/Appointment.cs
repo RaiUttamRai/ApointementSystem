@@ -14,7 +14,7 @@ namespace ApointementSystem.Models.ApointmentModel
         public DateTime EndTime { get; set; }
         public DateTime AddedOn { get; set; }
         public DateTime LastUpdatedOn { get; set; }
-        public string Status { get; set; } // E.g., "Active", "Cancelled", "Completed"
+        public string Status { get; set; }
         public Officer Officer { get; set; }
         public Visitor Visitor { get; set; }
     }

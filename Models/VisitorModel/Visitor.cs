@@ -8,7 +8,7 @@ namespace ApointementSystem.Models.VisitorModel
         public string Name { get; set; }
         public string MobileNo { get; set; }
         public string Email { get; set; }
-        public bool Status { get; set; } // true for Active, false for Inactive
+        public bool Status { get; set; } 
         public ICollection<Appointment> Appointments { get; set; }
     }
 }

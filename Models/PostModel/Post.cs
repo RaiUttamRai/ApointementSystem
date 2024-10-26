@@ -6,7 +6,7 @@ namespace ApointementSystem.Models.PostModel
     {
         public int PostId { get; set; }
         public string Name { get; set; }
-        public bool Status { get; set; } // true for Active, false for Inactive
+        public bool Status { get; set; } 
         public ICollection<Officer> Officers { get; set; }
     }
 }
