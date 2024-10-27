@@ -1,4 +1,5 @@
 ﻿using ApointementSystem.Models.PostModel;
+using ApointementSystem.Models.viewmodel;
 using ApointementSystem.Repository.PostRepo;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,12 +26,11 @@ namespace ApointementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Models.PostModel.Post post)
         {
-            if(ModelState.IsValid)
-            {
+             
                 await _postRepository.AddPostAsync(post);
                 return RedirectToAction("Index");
 
-            }
+            
             return View(post);
         }
         public async Task<IActionResult> Edit(int id)
@@ -42,7 +42,7 @@ namespace ApointementSystem.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Post post,int id)
+        public async Task<IActionResult> Edit(EditPost post,int id)
         {
             if(ModelState.IsValid)
             {
@@ -53,13 +53,13 @@ namespace ApointementSystem.Controllers
         }
         public async Task<IActionResult> Activate(int id)
         {
-            await _postRepository.SetPostStatusAsync(id, true);
+            await _postRepository.SetPostStatusAsync(id, false);
             return RedirectToAction("Index");
 
         }
         public async Task<IActionResult> Deactive(int id)
         {
-            await _postRepository.SetPostStatusAsync(id, false);
+            await _postRepository.SetPostStatusAsync(id, true);
             return RedirectToAction("Index");
         }
 

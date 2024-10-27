@@ -1,8 +1,8 @@
-﻿@* @model ApointementSystem.Models.PostModel.Post
+﻿@model IEnumerable<ApointementSystem.Models.PostModel.Post>
 
 <div class="container mt-5">
     <h2 class="mb-4">Manage Posts</h2>
-    <a class="btn btn-primary mb-3" href="@Url.Action("Create", "Post")">Add New Post</a>
+    <a class="btn btn-primary mb-3" asp-controller="PostM" asp-action="Create">Add New Post</a>
     <table class="table table-bordered">
         <thead class="thead-dark">
             <tr>
@@ -17,25 +17,24 @@
                 <tr>
                     <td>@post.Name</td>
                     <td>
-                        @if (post.Status == "Active")
+                        @if(post.Status == true)
                         {
-                            <span class="badge badge-success">Active</span>
+                            <span class="badge text-success">Active</span>
                         }
                         else
                         {
-                            <span class="badge badge-secondary">Inactive</span>
+                            <span class="badge text-danger">Inactive</span>
                         }
                     </td>
                     <td>
-                        <a class="btn btn-warning btn-sm" href="@Url.Action("Edit", "Create", new { id = post.Id })">Edit</a>
-
-                        @if (post.Status == true)
+                        <a class="btn btn-sm btn-warning" asp-controller="PostM" asp-action="Edit" asp-route-id="@post.PostId">Edit</a>
+                        @if (post.Status)
                         {
-                            <a class="btn btn-danger btn-sm" href="@Url.Action("Deactivate", "Create", new { id = post.Id })">Deactivate</a>
+                            <a class="btn btn-sm btn-danger" asp-controller="PostM" asp-action="Deactive" asp-route-id="@post.PostId">Deactivate</a>
                         }
                         else
                         {
-                            <a class="btn btn-success btn-sm" href="@Url.Action("Activate", "Create", new { id = post.Id })">Activate</a>
+                            <a class="btn btn-sm btn-success" asp-controller="PostM" asp-action="Activate" asp-route-id="@post.PostId">Activate</a>
                         }
                     </td>
                 </tr>
@@ -43,4 +42,3 @@
         </tbody>
     </table>
 </div>
- *@

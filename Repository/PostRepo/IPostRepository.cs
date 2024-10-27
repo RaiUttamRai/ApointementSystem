@@ -1,4 +1,5 @@
 ﻿using ApointementSystem.Models.PostModel;
+using ApointementSystem.Models.viewmodel;
 
 namespace ApointementSystem.Repository.PostRepo
 {
@@ -7,7 +8,7 @@ namespace ApointementSystem.Repository.PostRepo
         Task<IEnumerable<Post>> GetAllPostAsync();
         Task<Post> GetPostByIdAsync(int id);
         Task AddPostAsync(Post post);   
-        Task UpdatePostAsync(Post post,int id);
+        Task UpdatePostAsync(EditPost post,int id);
         Task SetPostStatusAsync(int id, bool isActive);
     }
 }

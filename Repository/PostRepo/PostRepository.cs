@@ -1,5 +1,6 @@
 ﻿using ApointementSystem.Data;
 using ApointementSystem.Models.PostModel;
+using ApointementSystem.Models.viewmodel;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApointementSystem.Repository.PostRepo
@@ -11,7 +12,7 @@ namespace ApointementSystem.Repository.PostRepo
         public PostRepository(ApplicationDbContext context)
         {
             _context = context;
-            
+
         }
         public async Task<IEnumerable<Post>> GetAllPostAsync()
         {
@@ -28,13 +29,22 @@ namespace ApointementSystem.Repository.PostRepo
             _context.posts.Add(post);
             await _context.SaveChangesAsync();
         }
-        public async Task UpdatePostAsync(Post post, int id)
+        public async Task UpdatePostAsync(EditPost post, int id)
         {
-            if(id!=null || id!=0)
+
+            var toEdit = await _context.posts.FindAsync(id);
+
+            if (toEdit== null)
             {
-                _context.posts.Update(post);
-                await _context.SaveChangesAsync();
+                throw new KeyNotFoundException($"POST with ID {id} not found.");
+
             }
+
+            toEdit.Name = post.Name;
+           // toEdit.Status = post.Status;
+
+            await _context.SaveChangesAsync();
+
         }
 
         public async Task SetPostStatusAsync(int id, bool isActive)
@@ -42,11 +52,11 @@ namespace ApointementSystem.Repository.PostRepo
             var post = await _context.posts.FindAsync(id);
             if (post != null)
             {
-                post.Status=isActive ? false : true;
+                post.Status = isActive ? false : true;
                 await _context.SaveChangesAsync();
             }
         }
 
-        
+
     }
 }
