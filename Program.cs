@@ -1,5 +1,6 @@
 using ApointementSystem.Data;
 using ApointementSystem.Repository.PostRepo;
+using ApointementSystem.Repository.VisitorRepo;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<IVisitorRepository, VisitorRepository>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

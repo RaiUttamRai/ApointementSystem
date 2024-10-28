@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ApointementSystem.Models.VisitorModel.Visitor>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Manage Visitor Post</h2>
+    <a class="btn btn-primary mb-3" asp-controller="Visitor" asp-action="Create">Add New Visitor</a>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Mobile No</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Action</th>
+                 
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var visitor in Model)
+            {
+                <tr>
+                    <td>@visitor.Name</td>
+                    <td>@visitor.MobileNo</td>
+                    <td>@visitor.Email</td>
+                    <td>
+                        @if (visitor.Status==true)
+                        {
+                            <span class="badge text-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge text-danger">Inactive</span>
+                        }
+                    </td>
+                   
+                    <td>
+                        <a class="btn btn-sm btn-warning" asp-controller="Visitor" asp-action="Edit" asp-route-id="@visitor.VisitorId">Edit</a>
+                        @if (visitor.Status)
+                        {
+                            <a class="btn btn-sm btn-danger" asp-controller="Visitor" asp-action="Deactive" asp-route-id="@visitor.VisitorId">Deactivate</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-sm btn-success" asp-controller="Visitor" asp-action="Activate" asp-route-id="@visitor.VisitorId">Activate</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
