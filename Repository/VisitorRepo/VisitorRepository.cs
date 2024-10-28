@@ -1,4 +1,5 @@
 ﻿using ApointementSystem.Data;
+using ApointementSystem.Models.ApointmentModel;
 using ApointementSystem.Models.viewmodel;
 using ApointementSystem.Models.VisitorModel;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,11 @@ namespace ApointementSystem.Repository.VisitorRepo
         {
             return await _context.visitors.FindAsync(visitorId);
         }
+        public async Task<IEnumerable<Visitor>> GetAppointmentsByVisitorIdAsync(int visitorId)
+        {
+            return await _context.visitors.Where(a => a.VisitorId == visitorId).ToListAsync();
+        }
+
 
         public async Task AddVisitorAsync(Visitor visitor)
         {

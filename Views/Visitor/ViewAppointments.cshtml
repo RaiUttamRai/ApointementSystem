@@ -1,0 +1,26 @@
+﻿@model IEnumerable<ApointementSystem.Models.VisitorModel.Visitor>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Appointments for Visitor</h2>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Appointment for</th>
+                <th>Details</th>
+                <th>Status</th>
+                <!-- Add other relevant columns -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appointment in Model)
+            {
+                <tr>
+                    <td>@appointment.Name</td>
+                    <td>@appointment.Email</td>
+                    <td>@appointment.Status</td>
+                    <!-- Display other relevant fields -->
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

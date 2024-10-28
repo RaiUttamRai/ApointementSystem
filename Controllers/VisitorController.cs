@@ -22,8 +22,20 @@
                 var visitors = await _visitorRepository.GetAllVisitorsAsync();
                 return View(visitors);
             }
+        public async Task<IActionResult> ViewAppointments(int id)
+        {
+            var visitor = await _visitorRepository.GetVisitorByIdAsync(id);
+            if (visitor.Status==false)
+            {
+                return NotFound("visitor was deactive please activate"); 
+            }
 
-            public IActionResult Create()
+            var appointments = await _visitorRepository.GetAppointmentsByVisitorIdAsync(id); 
+            return View(appointments); // Pass appointments to the view
+        }
+
+
+        public IActionResult Create()
             {
                 return View();
             }
