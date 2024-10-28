@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ApointementSystem.Models.OfficerModel.Officer>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Manage Officer Post</h2>
+    <a class="btn btn-primary mb-3" asp-controller="Officer" asp-action="Create">Add New Officer</a>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Post</th>
+                <th>Status</th>
+                <th>Action</th>
+                 
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var officer in Model)
+            {
+                <tr>
+                    <td>@officer.Name</td>
+                    <td>@officer.Post.Name</td>
+                    
+                    <td>
+                        @if (officer.Status==true)
+                        {
+                            <span class="badge text-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge text-danger">Inactive</span>
+                        }
+                    </td>
+                   
+                    <td>
+                        <a class="btn btn-sm btn-warning" asp-controller="Officer" asp-action="Edit" asp-route-id="@officer.OfficerId">Edit</a>
+                        <a class="btn btn-sm btn-info" asp-controller="Officer" asp-action="Appointments" asp-route-id="@officer.OfficerId">View Appointments</a>
+
+                        @if (officer.Status)
+                        {
+                            <a class="btn btn-sm btn-danger" asp-controller="Officer" asp-action="Deactive" asp-route-id="@officer.OfficerId">Deactivate</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-sm btn-success" asp-controller="Officer" asp-action="Activate" asp-route-id="@officer.OfficerId">Activate</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

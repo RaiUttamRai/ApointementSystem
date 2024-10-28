@@ -1,0 +1,28 @@
+﻿@model IEnumerable<ApointementSystem.Models.OfficerModel.Officer>
+
+<div class="container mt-5">
+    <h2 class="mb-4">View Details</h2>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Post</th>
+                <th>Status</th>
+                <th>Work Start</th>
+                <th>Work End</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appointment in Model)
+            {
+                <tr>
+                    <td>@appointment.Name</td>
+                    <td>@appointment.Post?.Name</td>
+                    <td>@appointment.Status</td>
+                    <td>@appointment.WorkStartTime</td>
+                    <td>@appointment.WorkEndTime</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

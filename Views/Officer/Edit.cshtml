@@ -1,0 +1,31 @@
+﻿@model ApointementSystem.Models.OfficerModel.Officer
+
+<div class="container mt-5">
+    <h2>Edit Officer</h2>
+    <form asp-action="Edit" method="post">
+        <div class="form-group">
+            <label asp-for="Name" class="control-label">Officer Name</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PostId">Post</label>
+            <select asp-for="PostId" asp-items="ViewBag.Posts" class="form-control">
+                <option disabled selected>--Select One--</option>
+            </select>
+
+            <span asp-validation-for="PostId" class="text-danger"></span>
+        </div>
+
+
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

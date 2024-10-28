@@ -1,0 +1,53 @@
+﻿@model ApointementSystem.Models.OfficerModel.Officer
+@{
+    ViewData["Title"] = "Create Officer";
+}
+
+<h2>Create Officer</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+     
+    <div class="form-group">
+        <label asp-for="PostId">Post</label>
+        <select asp-for="PostId" asp-items="ViewBag.Posts" class="form-control">
+            <option disabled selected>--Select One--</option>
+        </select>
+        
+        <span asp-validation-for="PostId" class="text-danger"></span>
+    </div>
+
+
+
+     
+    <div class="form-group">
+        <label asp-for="WorkStartTime">Work Start Time</label>
+        <input asp-for="WorkStartTime" class="form-control" type="time" />
+        <span asp-validation-for="WorkStartTime" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="WorkEndTime">Work End Time</label>
+        <input asp-for="WorkEndTime" class="form-control" type="time" />
+        <span asp-validation-for="WorkEndTime" class="text-danger"></span>
+    </div>
+
+   @*  <div class="form-group">
+        <label>Work Days</label>
+        <div class="form-check">
+            @foreach (var day in Enum.GetValues(typeof(DayOfWeek)))
+            {
+                <input type="checkbox" name="WorkDays" value="@day" class="form-check-input" />
+                <label class="form-check-label">@day</label>
+            }
+        </div>
+    </div> *@
+
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

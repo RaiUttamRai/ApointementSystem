@@ -56,6 +56,15 @@ namespace ApointementSystem.Repository.PostRepo
                 await _context.SaveChangesAsync();
             }
         }
+        public async Task<IEnumerable<Post>> GetActivePostsAsync()
+        {
+                 return await _context.posts
+                    .Where(p => p.Status)
+                    .ToListAsync();
+            
+
+        }
+
 
 
     }

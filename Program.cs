@@ -1,4 +1,5 @@
 using ApointementSystem.Data;
+using ApointementSystem.Repository.OfficerRepo;
 using ApointementSystem.Repository.PostRepo;
 using ApointementSystem.Repository.VisitorRepo;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IVisitorRepository, VisitorRepository>();
+builder.Services.AddScoped<IOfficerRepository, OfficerRepository>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

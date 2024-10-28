@@ -10,5 +10,9 @@ namespace ApointementSystem.Repository.PostRepo
         Task AddPostAsync(Post post);   
         Task UpdatePostAsync(EditPost post,int id);
         Task SetPostStatusAsync(int id, bool isActive);
+        Task<IEnumerable<Post>> GetActivePostsAsync();
+
+
+
     }
 }
