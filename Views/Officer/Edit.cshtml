@@ -16,6 +16,17 @@
 
             <span asp-validation-for="PostId" class="text-danger"></span>
         </div>
+        <div class="form-group">
+            <label asp-for="WorkStartTime">Work Start Time</label>
+            <input asp-for="WorkStartTime" class="form-control" type="time" />
+            <span asp-validation-for="WorkStartTime" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="WorkEndTime">Work End Time</label>
+            <input asp-for="WorkEndTime" class="form-control" type="time" />
+            <span asp-validation-for="WorkEndTime" class="text-danger"></span>
+        </div>
 
 
 

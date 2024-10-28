@@ -51,6 +51,8 @@ namespace ApointementSystem.Repository.OfficerRepo
 
             toEdit.Name = officer.Name;
             toEdit.PostId = officer.PostId;
+            toEdit.WorkStartTime = officer.WorkStartTime;
+            toEdit.WorkEndTime = officer.WorkEndTime;
             await _context.SaveChangesAsync();
         }
         //public async Task SetPostStatusAsync(int id, bool isActive)
