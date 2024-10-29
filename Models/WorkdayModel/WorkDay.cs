@@ -9,7 +9,7 @@ namespace ApointementSystem.Models.WorkdayModel
         public int OfficerId { get; set; }
         [ForeignKey("OfficerId")]
         public Officer Officer { get; set; }
-        public DayOfWeek DayOfWeek { get; set; }
-        
+        public string SelectedDays { get; set; }
+
     }
 }

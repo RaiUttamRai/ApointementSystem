@@ -55,16 +55,7 @@ namespace ApointementSystem.Repository.OfficerRepo
             toEdit.WorkEndTime = officer.WorkEndTime;
             await _context.SaveChangesAsync();
         }
-        //public async Task SetPostStatusAsync(int id, bool isActive)
-        //{
-        //    var officer = await _context.officers.FindAsync(id);
-        //    if (officer != null)
-        //    {
-        //        officer.Status = isActive ? false : true;
-        //        await _context.SaveChangesAsync();
-        //    }
-        //}
-
+       
 
 
 

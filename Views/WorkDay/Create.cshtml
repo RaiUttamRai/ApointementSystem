@@ -1,0 +1,29 @@
+﻿@model ApointementSystem.Models.WorkdayModel.WorkDay
+
+<h2>Create Work Days</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="OfficerId">Officer</label>
+        <select asp-for="OfficerId" asp-items="ViewBag.Officer" class="form-control">
+            <option disabled selected>--Select One--</option>
+        </select>
+        <span asp-validation-for="OfficerId" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label>Days of the Week</label>
+        <div>
+            @foreach (var day in Enum.GetValues(typeof(DayOfWeek)))
+            {
+                <div>
+                    <input type="checkbox" name="SelectedDays" value="@day" />
+                    <label>@day</label>
+                </div>
+            }
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

@@ -14,12 +14,12 @@
 
      
     <div class="form-group">
-        <label asp-for="PostId">Post</label>
-        <select asp-for="PostId" asp-items="ViewBag.Posts" class="form-control">
+        <label asp-for="OfficerId">Officer Name</label>
+        <select asp-for="OfficerId" asp-items="ViewBag.OfficerId" class="form-control">
             <option disabled selected>--Select One--</option>
         </select>
         
-        <span asp-validation-for="PostId" class="text-danger"></span>
+        <span asp-validation-for="OfficerId" class="text-danger"></span>
     </div>
 
 

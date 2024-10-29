@@ -1,0 +1,23 @@
+﻿@model IEnumerable<ApointementSystem.Models.WorkdayModel.WorkDay>
+
+<h2>Work Days</h2>
+<a class="btn btn-primary mb-3" asp-controller="WorkDay" asp-action="Create">Add New Work Day</a>
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>Officer Name</th>
+            <th>Day of Week</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var workDay in Model)
+        {
+            <tr>
+                <td>@workDay.Officer.Name</td>
+                <td>@workDay.SelectedDays</td>
+                 
+            </tr>
+        }
+    </tbody>
+</table>
