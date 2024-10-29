@@ -65,7 +65,15 @@ namespace ApointementSystem.Repository.VisitorRepo
                 await _context.SaveChangesAsync();
             }
         }
+        public async Task<bool> IsActive(int visitorId)
+        {
+            var officer = await _context.visitors.FindAsync(visitorId);
+            return officer?.Status == true;
+        }
 
-        
+        public async Task<IEnumerable<Visitor>> GetActiveVisitorAsync()
+        {
+            return await _context.visitors.Where(v=>v.Status==true).ToListAsync();
+        }
     }
 }

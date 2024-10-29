@@ -1,0 +1,45 @@
+﻿@model ApointementSystem.Models.ApointmentModel.Appointment
+
+<h2>Create Appointment</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="OfficerId">Officer</label>
+        <select asp-for="OfficerId" asp-items="@ViewBag.Officer" class="form-control">
+            <option disabled selected>--Select Officer--</option>
+        </select>
+        <span asp-validation-for="OfficerId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="VisitorId">Visitor</label>
+        <select asp-for="VisitorId" asp-items="@ViewBag.Visitor" class="form-control">
+            <option disabled selected>--Select Visitor--</option>
+        </select>
+        <span asp-validation-for="VisitorId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="Date">Date</label>
+        <input asp-for="Date" class="form-control" type="date" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StartTime">Start Time</label>
+        <input asp-for="StartTime" class="form-control" type="time" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EndTime">End Time</label>
+        <input asp-for="EndTime" class="form-control" type="time" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Appointment</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

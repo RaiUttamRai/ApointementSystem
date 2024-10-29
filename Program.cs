@@ -1,4 +1,5 @@
 using ApointementSystem.Data;
+using ApointementSystem.Repository.Appoinment;
 using ApointementSystem.Repository.DayOfWeek;
 using ApointementSystem.Repository.OfficerRepo;
 using ApointementSystem.Repository.PostRepo;
@@ -16,6 +17,7 @@ builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IVisitorRepository, VisitorRepository>();
 builder.Services.AddScoped<IOfficerRepository, OfficerRepository>();
 builder.Services.AddScoped<IWorkDayRepository, WorkDayRepository>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

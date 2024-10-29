@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ApointementSystem.Models.ApointmentModel.Appointment>
+<div class="container mt-5">
+    <h2>Appointments</h2>
+    <a asp-action="Create" class="btn btn-primary">Add New Appointment</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Officer</th>
+                <th>Visitor</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Officer.Name</td>
+                    <td>@item.Visitor.Name</td>
+                    <td>@item.Name</td>
+                    <td>@item.Date.ToString("yyyy-MM-dd")</td>
+                    <td>@item.StartTime.ToString("HH:mm")</td>
+                    <td>@item.EndTime.ToString("HH:mm")</td>
+                    <td>
+                        @if (item.Status == true)
+                        {
+                            <span class="badge text-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge text-danger">Inactive</span>
+                        }
+                         
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="Appointments" asp-route-id="@item.AppointmentId" class="btn btn-warning">Edit</a>
+                        <a asp-action="Cancel" asp-route-id="@item.AppointmentId" class="btn btn-danger">Cancel</a>
+                        @if (item.Status)
+                        {
+                            <a class="btn btn-sm btn-danger" asp-controller="Appointments" asp-action="Deactive" asp-route-id="@item.AppointmentId">Deactivate</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-sm btn-success" asp-controller="Officer" asp-action="Activate" asp-route-id="@item.AppointmentId">Activate</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -15,7 +15,7 @@
      
     <div class="form-group">
         <label asp-for="OfficerId">Officer Name</label>
-        <select asp-for="OfficerId" asp-items="ViewBag.OfficerId" class="form-control">
+        <select asp-for="OfficerId" asp-items="@ViewBag.Posts" class="form-control">
             <option disabled selected>--Select One--</option>
         </select>
         
@@ -37,17 +37,7 @@
         <span asp-validation-for="WorkEndTime" class="text-danger"></span>
     </div>
 
-   @*  <div class="form-group">
-        <label>Work Days</label>
-        <div class="form-check">
-            @foreach (var day in Enum.GetValues(typeof(DayOfWeek)))
-            {
-                <input type="checkbox" name="WorkDays" value="@day" class="form-check-input" />
-                <label class="form-check-label">@day</label>
-            }
-        </div>
-    </div> *@
-
+   
     <button type="submit" class="btn btn-primary">Create</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>

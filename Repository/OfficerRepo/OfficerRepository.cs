@@ -1,6 +1,7 @@
 ﻿using ApointementSystem.Data;
 using ApointementSystem.Models.ApointmentModel;
 using ApointementSystem.Models.OfficerModel;
+using ApointementSystem.Models.PostModel;
 using ApointementSystem.Models.viewmodel;
 using ApointementSystem.Models.VisitorModel;
 using ApointementSystem.Models.WorkdayModel;
@@ -85,9 +86,14 @@ namespace ApointementSystem.Repository.OfficerRepo
             var officer = await _context.officers.FindAsync(id);
             if (officer != null)
             {
-                officer.Status = isActive ? false : true;
+                officer.Status = isActive;
                 await _context.SaveChangesAsync();
             }
+        }
+        public async Task<bool> IsActive(int officerId)
+        {
+            var officer = await _context.officers.FindAsync(officerId);
+            return officer?.Status == true;
         }
 
         public async Task<IEnumerable<Officer>> GetAppointmentsByOfficerIdAsync(int officerId)
@@ -97,6 +103,12 @@ namespace ApointementSystem.Repository.OfficerRepo
         .Include(o => o.Post)
         .Where(u => u.OfficerId == officerId)
         .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Officer>> GetActiveOfficerAsync()
+        {
+            return await _context.officers.Where(o => o.Status == true).ToListAsync();
+
         }
     }
 }
