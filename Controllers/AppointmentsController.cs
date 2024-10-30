@@ -5,6 +5,7 @@ using ApointementSystem.Repository.VisitorRepo;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using static ApointementSystem.Models.ApointmentModel.Appointment;
 
 namespace ApointementSystem.Controllers
 {
@@ -39,8 +40,9 @@ namespace ApointementSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Appointment appointment)
         {
-            appointment.Status = true ;
-            
+            appointment.Status = AppointmentStatus.Active;
+
+
 
             if (!await _appointmentRepository.IsOfficerAvailable(appointment.OfficerId, appointment.Date, appointment.StartTime, appointment.EndTime) ||
                 !await _appointmentRepository.IsVisitorAvailable(appointment.VisitorId, appointment.Date, appointment.StartTime, appointment.EndTime))
@@ -75,25 +77,55 @@ namespace ApointementSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Appointment appointment, int id)
+        public async Task<IActionResult> Edit(Appointment appointment, int id, int officerId, int visitorId)
         {
             if (ModelState.IsValid)
             {
-                await _appointmentRepository.UpdateAppointmentAsync(appointment,id);
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    await _appointmentRepository.UpdateAppointmentAsync(appointment, id, officerId, visitorId);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, "An error occurred while updating the appointment.");
+                }
             }
-            var officer = await _officerRepository.GetActiveOfficerAsync();
-            var visitor = await _visitorRepository.GetActiveVisitorAsync();
-            ViewBag.Officer = new SelectList(officer, "OfficerId", "Name");
-            ViewBag.Visitor = new SelectList(visitor, "VisitorId", "Name");
+
+            var officers = await _officerRepository.GetActiveOfficerAsync();
+            var visitors = await _visitorRepository.GetActiveVisitorAsync();
+            ViewBag.Officer = new SelectList(officers, "OfficerId", "Name", officerId);
+            ViewBag.Visitor = new SelectList(visitors, "VisitorId", "Name", visitorId);
             return View(appointment);
+        }
+  
+        public async Task<IActionResult> Activate(int id)
+        {
+
+            await _appointmentRepository.SetAppointsStatusAsync(id, AppointmentStatus.Active);
+            return RedirectToAction("Index");
 
         }
-
+        public async Task<IActionResult> Deactivate(int id)
+        {
+            await _appointmentRepository.SetAppointsStatusAsync(id, AppointmentStatus.Deactivated);
+            return RedirectToAction("Index");
+        }
         public async Task<IActionResult> Cancel(int id)
         {
-            await _appointmentRepository.CancelAppointmentAsync(id);
-            return RedirectToAction(nameof(Index));
+
+            await _appointmentRepository.SetAppointsStatusAsync(id, AppointmentStatus.Cancelled);
+            return RedirectToAction("Index");
+
+        }
+        public async Task<IActionResult> Complete(int id)
+        {
+            await _appointmentRepository.SetAppointsStatusAsync(id, AppointmentStatus.Completed);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -24,8 +24,15 @@ namespace ApointementSystem.Models.ApointmentModel
         public DateTime EndTime { get; set; }
         public DateTime AddedOn { get; set; }
         public DateTime LastUpdatedOn { get; set; }
-        public bool Status { get; set; }
-        
-        
+        public AppointmentStatus Status { get; set; }
+        public enum AppointmentStatus
+        {
+            Active,
+            Cancelled,
+            Deactivated,
+            Completed
+        }
+
+
     }
 }

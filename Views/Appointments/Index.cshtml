@@ -1,5 +1,7 @@
-﻿@model IEnumerable<ApointementSystem.Models.ApointmentModel.Appointment>
-<div class="container mt-5">
+﻿@using static ApointementSystem.Models.ApointmentModel.Appointment
+@model IEnumerable<ApointementSystem.Models.ApointmentModel.Appointment>
+
+<div class="container mt-5 ">
     <h2>Appointments</h2>
     <a asp-action="Create" class="btn btn-primary">Add New Appointment</a>
 
@@ -27,27 +29,47 @@
                     <td>@item.StartTime.ToString("HH:mm")</td>
                     <td>@item.EndTime.ToString("HH:mm")</td>
                     <td>
-                        @if (item.Status == true)
+                        @if (item.Status == AppointmentStatus.Completed)
                         {
-                            <span class="badge text-success">Active</span>
+                            <span class="badge bg-success">Completed</span>
                         }
-                        else
+                        else if (item.Status == AppointmentStatus.Cancelled)
                         {
-                            <span class="badge text-danger">Inactive</span>
+                            <span class="badge bg-danger">Cancelled</span>
                         }
-                         
+                        else if (item.Status == AppointmentStatus.Active)
+                        {
+                            <span class="badge bg-primary">Active</span>
+                        }
+                        else if (item.Status == AppointmentStatus.Deactivated)
+                        {
+                            <span class="badge bg-warning">Deactivated</span>
+                        }
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-controller="Appointments" asp-route-id="@item.AppointmentId" class="btn btn-warning">Edit</a>
+                        <a asp-action="Edit" asp-route-id="@item.AppointmentId" class="btn btn-info">Edit</a>
                         <a asp-action="Cancel" asp-route-id="@item.AppointmentId" class="btn btn-danger">Cancel</a>
-                        @if (item.Status)
+                        <a asp-action="Complete" asp-route-id="@item.AppointmentId" class="btn btn-success">Complete</a>
+                        <a asp-action="Activate" asp-route-id="@item.AppointmentId" class="btn btn-primary">Activate</a>
+                        <a asp-action="Deactivate" asp-route-id="@item.AppointmentId" class="btn btn-warning">Deactivate</a>
+
+                        @* @if (item.Status == AppointmentStatus.Cancelled)
                         {
-                            <a class="btn btn-sm btn-danger" asp-controller="Appointments" asp-action="Deactive" asp-route-id="@item.AppointmentId">Deactivate</a>
+                            <a class="btn btn-sm btn-secondary" asp-action="Complete" asp-route-id="@item.AppointmentId">Completed</a>
                         }
-                        else
+                        @if (item.Status == AppointmentStatus.Completed)
                         {
-                            <a class="btn btn-sm btn-success" asp-controller="Officer" asp-action="Activate" asp-route-id="@item.AppointmentId">Activate</a>
+                        <a class="btn btn-sm btn-danger" asp-action="Cancel" asp-route-id="@item.AppointmentId">Cancel</a>
                         }
+
+                        @if (item.Status == AppointmentStatus.Active)
+                        {
+                            <a class="btn btn-sm btn-primary" asp-action="Deactivate" asp-route-id="@item.AppointmentId">Deactivate</a>
+                        }
+                        @if (item.Status == AppointmentStatus.Deactivated)
+                        {
+                            <a class="btn btn-sm btn-warning" asp-action="Activate" asp-route-id="@item.AppointmentId">Activate</a>
+                        } *@
                     </td>
                 </tr>
             }
