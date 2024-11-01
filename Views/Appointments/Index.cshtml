@@ -29,21 +29,21 @@
                     <td>@item.StartTime.ToString("HH:mm")</td>
                     <td>@item.EndTime.ToString("HH:mm")</td>
                     <td>
-                        @if (item.Status == AppointmentStatus.Completed)
-                        {
-                            <span class="badge bg-success">Completed</span>
-                        }
-                        else if (item.Status == AppointmentStatus.Cancelled)
-                        {
-                            <span class="badge bg-danger">Cancelled</span>
-                        }
-                        else if (item.Status == AppointmentStatus.Active)
+                        @if (item.Status == AppointmentStatus.Active)
                         {
                             <span class="badge bg-primary">Active</span>
                         }
                         else if (item.Status == AppointmentStatus.Deactivated)
                         {
-                            <span class="badge bg-warning">Deactivated</span>
+                            <span class="badge bg-warning">Deactive</span>
+                        }
+                        else if (item.Status == AppointmentStatus.Completed)
+                        {
+                            <span class="badge bg-success">Completed</span>
+                        }
+                        else if (item.Status == AppointmentStatus.Cancelled)
+                        {
+                            <span class="badge bg-danger">Cancel</span>
                         }
                     </td>
                     <td>
