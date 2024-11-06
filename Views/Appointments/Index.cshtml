@@ -1,28 +1,28 @@
 ﻿@using static ApointementSystem.Models.ApointmentModel.Appointment
 @model IEnumerable<ApointementSystem.Models.ApointmentModel.Appointment>
 
-<div class="container mt-5">
-    <h2>Appointments</h2>
+<div class="container mt-4">
+    <h2>Appointments Lists</h2>
     <a asp-action="Create" class="btn btn-primary">Add New Appointment</a>
 
     <!-- Single Filter Input -->
-    <div class="row my-4">
-        <div class="col-md-4">
+    <div class="row my-4" >
+        <div class="col-md-3" style="margin-bottom:20px">
             <input type="text" id="searchAll" class="form-control" placeholder="Search by Type, Status, Officer, or Visitor">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <label for="dateFrom">Date From:</label>
             <input type="date" id="dateFrom" class="form-control">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <label for="dateTo">Date To:</label>
             <input type="date" id="dateTo" class="form-control">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <label for="timeFrom">Time From:</label>
             <input type="time" id="timeFrom" class="form-control">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <label for="timeTo">Time To:</label>
             <input type="time" id="timeTo" class="form-control">
         </div>
@@ -32,6 +32,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>SN</th>
                 <th>Officer</th>
                 <th>Visitor</th>
                 <th>Name</th>
@@ -42,7 +43,8 @@
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="appointmentsTableBody">
+
             @foreach (var item in Model)
             {
                 <tr class="appointment-row"
@@ -53,6 +55,7 @@
                     data-date="@item.Date.ToString("yyyy-MM-dd")"
                     data-start-time="@item.StartTime.ToString("HH:mm")"
                     data-end-time="@item.EndTime.ToString("HH:mm")">
+                    <td></td>
                     <td>@item.Officer.Name</td>
                     <td>@item.Visitor.Name</td>
                     <td>@item.Name</td>
@@ -95,5 +98,26 @@
             }
         </tbody>
     </table>
+    <div class="pagination">
+        <button id="prevPage" class="btn btn-danger" disabled>Previous
+        </button>
+        <span id="pageInfo">Page 1</span>
+        <button id="nextPage" class="btn btn-primary">Next</button>
+
+    </div>
 </div>
 <script src="~/js/index.js"></script>
+<style>
+    
+    .container{
+        margin-left:20px;
+    }
+    h2{
+        text-align:center;
+        text-color:white;
+    }
+    table{
+        background-color: #2d2d2d;
+    }
+     
+</style>
