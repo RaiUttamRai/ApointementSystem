@@ -22,9 +22,47 @@ namespace ApointementSystem.Controllers
             _visitorRepository = visitorRepository;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+            string generalSearch = null,
+        DateTime? fromDate = null,
+        DateTime? toDate = null,
+        TimeSpan? fromTime = null,
+        TimeSpan? toTime = null
+            )
         {
             var appointments = await _appointmentRepository.GetAllAppointmentsAsync();
+            //apply filters
+            if (!string.IsNullOrEmpty(generalSearch))
+            {
+                appointments = appointments.Where(a =>
+                    a.Name.Contains(generalSearch, StringComparison.OrdinalIgnoreCase) ||
+                    a.Status.ToString().Contains(generalSearch, StringComparison.OrdinalIgnoreCase) ||
+                    a.Officer.Name.Contains(generalSearch, StringComparison.OrdinalIgnoreCase) ||
+                    a.Visitor.Name.Contains(generalSearch, StringComparison.OrdinalIgnoreCase)
+                ).ToList();
+            }
+
+            // Date range filter
+            if (fromDate.HasValue)
+            {
+                appointments = appointments.Where(a => a.Date >= fromDate.Value).ToList();
+            }
+            if (toDate.HasValue)
+            {
+                appointments = appointments.Where(a => a.Date <= toDate.Value).ToList();
+            }
+
+            // Time range filter
+            if (fromTime.HasValue)
+            {
+                appointments = appointments.Where(a => a.StartTime.TimeOfDay >= fromTime.Value).ToList();
+            }
+            if (toTime.HasValue)
+            {
+                appointments = appointments.Where(a => a.EndTime.TimeOfDay <= toTime.Value).ToList();
+            }
+
+
             return View(appointments);
         }
 

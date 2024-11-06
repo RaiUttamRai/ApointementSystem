@@ -1,10 +1,34 @@
 ﻿@using static ApointementSystem.Models.ApointmentModel.Appointment
 @model IEnumerable<ApointementSystem.Models.ApointmentModel.Appointment>
 
-<div class="container mt-5 ">
+<div class="container mt-5">
     <h2>Appointments</h2>
     <a asp-action="Create" class="btn btn-primary">Add New Appointment</a>
 
+    <!-- Single Filter Input -->
+    <div class="row my-4">
+        <div class="col-md-4">
+            <input type="text" id="searchAll" class="form-control" placeholder="Search by Type, Status, Officer, or Visitor">
+        </div>
+        <div class="col-md-3">
+            <label for="dateFrom">Date From:</label>
+            <input type="date" id="dateFrom" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <label for="dateTo">Date To:</label>
+            <input type="date" id="dateTo" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <label for="timeFrom">Time From:</label>
+            <input type="time" id="timeFrom" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <label for="timeTo">Time To:</label>
+            <input type="time" id="timeTo" class="form-control">
+        </div>
+    </div>
+
+    <!-- Appointments Table -->
     <table class="table">
         <thead>
             <tr>
@@ -21,7 +45,14 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+                <tr class="appointment-row"
+                    data-type="@item.Name"
+                    data-status="@item.Status.ToString()"
+                    data-officer="@item.Officer.Name"
+                    data-visitor="@item.Visitor.Name"
+                    data-date="@item.Date.ToString("yyyy-MM-dd")"
+                    data-start-time="@item.StartTime.ToString("HH:mm")"
+                    data-end-time="@item.EndTime.ToString("HH:mm")">
                     <td>@item.Officer.Name</td>
                     <td>@item.Visitor.Name</td>
                     <td>@item.Name</td>
@@ -29,50 +60,40 @@
                     <td>@item.StartTime.ToString("HH:mm")</td>
                     <td>@item.EndTime.ToString("HH:mm")</td>
                     <td>
-                        @if (item.Status == AppointmentStatus.Active)
-                        {
-                            <span class="badge bg-primary">Active</span>
-                        }
-                        else if (item.Status == AppointmentStatus.Deactivated)
-                        {
-                            <span class="badge bg-warning">Deactive</span>
-                        }
-                        else if (item.Status == AppointmentStatus.Completed)
+                        @if (item.Status == AppointmentStatus.Completed)
                         {
                             <span class="badge bg-success">Completed</span>
                         }
                         else if (item.Status == AppointmentStatus.Cancelled)
                         {
-                            <span class="badge bg-danger">Cancel</span>
+                            <span class="badge bg-danger">Cancelled</span>
+                        }
+                        else if (item.Status == AppointmentStatus.Active)
+                        {
+                            <span class="badge bg-primary">Active</span>
+                        }
+                        else if (item.Status == AppointmentStatus.Deactivated)
+                        {
+                            <span class="badge bg-warning">Deactivated</span>
                         }
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.AppointmentId" class="btn btn-info">Edit</a>
+                        <a asp-action="Edit" asp-route-id="@item.AppointmentId" class="btn btn-warning">Edit</a>
                         <a asp-action="Cancel" asp-route-id="@item.AppointmentId" class="btn btn-danger">Cancel</a>
                         <a asp-action="Complete" asp-route-id="@item.AppointmentId" class="btn btn-success">Complete</a>
-                        <a asp-action="Activate" asp-route-id="@item.AppointmentId" class="btn btn-primary">Activate</a>
-                        <a asp-action="Deactivate" asp-route-id="@item.AppointmentId" class="btn btn-warning">Deactivate</a>
-
-                        @* @if (item.Status == AppointmentStatus.Cancelled)
-                        {
-                            <a class="btn btn-sm btn-secondary" asp-action="Complete" asp-route-id="@item.AppointmentId">Completed</a>
-                        }
-                        @if (item.Status == AppointmentStatus.Completed)
-                        {
-                        <a class="btn btn-sm btn-danger" asp-action="Cancel" asp-route-id="@item.AppointmentId">Cancel</a>
-                        }
 
                         @if (item.Status == AppointmentStatus.Active)
                         {
-                            <a class="btn btn-sm btn-primary" asp-action="Deactivate" asp-route-id="@item.AppointmentId">Deactivate</a>
+                            <a class="btn btn-sm btn-secondary" asp-action="Deactivate" asp-route-id="@item.AppointmentId">Deactivate</a>
                         }
-                        @if (item.Status == AppointmentStatus.Deactivated)
+                        else if (item.Status == AppointmentStatus.Deactivated)
                         {
-                            <a class="btn btn-sm btn-warning" asp-action="Activate" asp-route-id="@item.AppointmentId">Activate</a>
-                        } *@
+                            <a class="btn btn-sm btn-success" asp-action="Activate" asp-route-id="@item.AppointmentId">Activate</a>
+                        }
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+<script src="~/js/index.js"></script>
