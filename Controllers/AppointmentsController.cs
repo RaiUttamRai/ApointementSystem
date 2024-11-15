@@ -92,6 +92,7 @@ namespace ApointementSystem.Controllers
             {
                
                 await _appointmentRepository.AddAppointmentAsync(appointment);
+                TempData["SuccessMessage"] = "Appointment was successfully created!";
                 return RedirectToAction(nameof(Index));
 
             }
@@ -122,6 +123,7 @@ namespace ApointementSystem.Controllers
                 try
                 {
                     await _appointmentRepository.UpdateAppointmentAsync(appointment, id, officerId, visitorId);
+                    TempData["SuccessMessage"] = "Appointment Was Updated !";
                     return RedirectToAction(nameof(Index));
                 }
                 catch (KeyNotFoundException ex)
@@ -145,24 +147,28 @@ namespace ApointementSystem.Controllers
         {
 
             await _appointmentRepository.SetAppointsStatusAsync(id, AppointmentStatus.Active);
+            TempData["SuccessMessage"] = "Appointment was activated";
             return RedirectToAction("Index");
 
         }
         public async Task<IActionResult> Deactivate(int id)
         {
             await _appointmentRepository.SetAppointsStatusAsync(id, AppointmentStatus.Deactivated);
+            TempData["SuccessMessage"] = "Appointment was Deactivated!";
             return RedirectToAction("Index");
         }
         public async Task<IActionResult> Cancel(int id)
         {
 
             await _appointmentRepository.SetAppointsStatusAsync(id, AppointmentStatus.Cancelled);
+            TempData["SuccessMessage"] = "Appoinment was Cancel !";
             return RedirectToAction("Index");
 
         }
         public async Task<IActionResult> Complete(int id)
         {
             await _appointmentRepository.SetAppointsStatusAsync(id, AppointmentStatus.Completed);
+            TempData["SuccessMessage"] = "Appoinment was Completed";
             return RedirectToAction("Index");
         }
     }

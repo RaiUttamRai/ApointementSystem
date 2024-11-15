@@ -28,7 +28,8 @@ namespace ApointementSystem.Controllers
         {
              
                 await _postRepository.AddPostAsync(post);
-                return RedirectToAction("Index");
+              TempData["SuccessMessage"] = "Post successfully created!";
+            return RedirectToAction("Index");
 
             
             return View(post);
@@ -47,6 +48,7 @@ namespace ApointementSystem.Controllers
             if(ModelState.IsValid)
             {
                 await _postRepository.UpdatePostAsync(post,id);
+                TempData["SuccessMessage"] = "Post Was Updated successfully";
                 return RedirectToAction("Index");
             }
             return View(post);
@@ -54,12 +56,14 @@ namespace ApointementSystem.Controllers
         public async Task<IActionResult> Activate(int id)
         {
             await _postRepository.SetPostStatusAsync(id, false);
+            TempData["SuccessMessage"] = "Post Was Activated ";
             return RedirectToAction("Index");
 
         }
         public async Task<IActionResult> Deactive(int id)
         {
             await _postRepository.SetPostStatusAsync(id, true);
+            TempData["SuccessMessage"] = "Post was deactivated!";
             return RedirectToAction("Index");
         }
 

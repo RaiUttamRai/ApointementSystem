@@ -1,8 +1,5 @@
 ﻿@model ApointementSystem.Models.OfficerModel.Officer
-@{
-    ViewData["Title"] = "Create Officer";
-}
-
+ 
 <h2>Create Officer</h2>
 
 <form asp-action="Create" method="post">
@@ -14,12 +11,12 @@
 
      
     <div class="form-group">
-        <label asp-for="OfficerId">Officer Name</label>
-        <select asp-for="OfficerId" asp-items="@ViewBag.Posts" class="form-control">
+        <label asp-for="PostId">Officer Post</label>
+        <select asp-for="PostId" asp-items="@ViewBag.Posts" class="form-control">
             <option disabled selected>--Select One--</option>
         </select>
         
-        <span asp-validation-for="OfficerId" class="text-danger"></span>
+        <span asp-validation-for="PostId" class="text-danger"></span>
     </div>
 
 

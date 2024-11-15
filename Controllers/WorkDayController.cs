@@ -51,6 +51,7 @@ namespace ApointementSystem.Controllers
                     SelectedDays = string.Join(",", SelectedDays) // Save selected days as a comma-separated string
                 };
                 await _workDayRepository.AddWorkDayAsync(officerWorkDays);
+                TempData["SuccessMessage"] = "Work day was created";
                 return RedirectToAction(nameof(Index));
             }
 

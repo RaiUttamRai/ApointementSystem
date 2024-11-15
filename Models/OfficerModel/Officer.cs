@@ -9,6 +9,7 @@ namespace ApointementSystem.Models.OfficerModel
 {
     public class Officer
     {
+        [Key]
         public int OfficerId { get; set; }
         [Required]
         public string Name { get; set; }

@@ -43,6 +43,7 @@ namespace ApointementSystem.Controllers
             if (ModelState.IsValid)
             {
                 await _officerRepository.AddOfficerAsync(officer);
+                TempData["SuccessMessage"] = "Officer successfully created!";
                 return RedirectToAction(nameof(Index));
             }
 
@@ -75,6 +76,7 @@ namespace ApointementSystem.Controllers
             if (ModelState.IsValid)
             {
                 await _officerRepository.UpdateOfficerAsync(officer,id);
+                TempData["SuccessMessage"] = "Officer was Updated";
                 return RedirectToAction(nameof(Index));
             }
             var posts = await _postRepository.GetActivePostsAsync();
@@ -86,12 +88,14 @@ namespace ApointementSystem.Controllers
         public async Task<IActionResult> Activate(int id)
         {
             await _officerRepository.SetOfficerStatusAsync(id, false);
+            TempData["SuccessMessage"] = "Officer was Activated!";
             return RedirectToAction("Index");
 
         }
         public async Task<IActionResult> Deactive(int id)
         {
             await _officerRepository.SetOfficerStatusAsync(id, true);
+            TempData["SuccessMessage"] = "Officer was Deactivated";
             return RedirectToAction("Index");
         }
 

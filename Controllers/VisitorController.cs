@@ -47,7 +47,8 @@
             visitor.Status = true;
              
                     await _visitorRepository.AddVisitorAsync(visitor);
-                    return RedirectToAction(nameof(Index));
+            TempData["SuccessMessage"] = "Visitor was successfully created!";
+            return RedirectToAction(nameof(Index));
             
                 return View(visitor);
             }
@@ -70,7 +71,8 @@
                 if (ModelState.IsValid)
                 {
                     await _visitorRepository.UpdateVisitorAsync(visitor,visitorId);
-                    return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Visitor was Updated!";
+                return RedirectToAction(nameof(Index));
                 }
                 return View(visitor);
             }
@@ -79,13 +81,15 @@
             {
              
                 await _visitorRepository.SetVisitorStatusAsync(id, false);
-                return RedirectToAction("Index");
+            TempData["SuccessMessage"] = "Officer was activated!";
+            return RedirectToAction("Index");
 
             }
             public async Task<IActionResult> Deactive(int id)
             {
                 await _visitorRepository.SetVisitorStatusAsync(id, true);
-                return RedirectToAction("Index");
+            TempData["SuccessMessage"] = "Officer was deactivated!";
+            return RedirectToAction("Index");
             }
         }
     }
